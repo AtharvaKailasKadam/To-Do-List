@@ -9,7 +9,7 @@ export const ToDo = () =>
         <section className = "form">
             <form>
                 <div>
-                    
+                    <input type="text" className = "todo-input" autoComplete="off" />
                 </div>
                 <div>
                     <button type="submit" className = "todo-button">
