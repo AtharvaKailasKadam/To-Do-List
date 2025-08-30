@@ -7,7 +7,7 @@ import { IoIosTime } from "react-icons/io";
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ToDo.css";
 
 export const ToDo = () =>
@@ -42,12 +42,24 @@ export const ToDo = () =>
     const now = new Date();
     const formattedDate = now.toLocaleDateString();
 
-    setInterval(() => {
-    const now = new Date();
-    const formattedTime = now.toLocaleTimeString();
-    setDateTime(`${formattedTime}`)
+    useEffect(() => {
+        setInterval(() => {
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString();
+        setDateTime(`${formattedTime}`)
+        }, 1000)
+    });
 
-    }, 1000)
+    const handleDeleteTodo = (InputValue) =>
+    {
+        const updatedTask = TextTrackList.filter((curTask) => curTask !== InputValue);
+        setTextTrackList(updatedTask);
+    }
+
+    const handleClearTodo =() =>
+    {
+        setTextTrackList([]);
+    }
 
     return <section className="todo-container">
         <header>
@@ -79,7 +91,7 @@ export const ToDo = () =>
                                 <button className="todo-check">
                                     <GiCheckMark />
                                 </button>
-                                <button className="todo-delete">
+                                <button className="todo-delete" onClick={() => handleDeleteTodo(curTask)}>
                                     <MdDeleteForever />
                                 </button>
                             </div>
@@ -89,6 +101,11 @@ export const ToDo = () =>
                 }
                 </ul>
             </section>
+            <div className = "ClearButtonDiv">
+                <button className = "todo-ClearButton" onClick={handleClearTodo}>
+                    CLEAR ALL..!
+                </button>
+            </div>
         </section>
     </section>
 }
