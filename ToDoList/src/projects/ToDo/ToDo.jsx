@@ -5,9 +5,16 @@ import { TodoList } from "./TodoList";
 import { useState } from "react";
 import "./ToDo.css";
 
+const todoKey = "reactTodo";
+
 export const ToDo = () =>
 {
-    const [TextTrackList, setTextTrackList] = useState([]);
+    const [TextTrackList, setTextTrackList] = useState(() =>
+{
+    const rawTodos = localStorage.getItem(todoKey);
+    if(!rawTodos) return [];
+    return JSON.parse(rawTodos);
+});
 
     const handleFormSubmit = (InputValue) =>
     {
@@ -17,6 +24,9 @@ export const ToDo = () =>
         if (ifTodoContentMatched) return;
         setTextTrackList((previous) => [...previous, {id:id, content:content, checked:checked}]);
     };
+
+    localStorage.setItem(todoKey, JSON.stringify(TextTrackList));
+
     const handleDeleteTodo = (InputValue) =>
     {
         const updatedTask = TextTrackList.filter((curTask) => curTask.content !== InputValue);
