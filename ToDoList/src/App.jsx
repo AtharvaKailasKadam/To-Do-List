@@ -1,4 +1,4 @@
-import { ToDo } from "./projects/ToDo/Help";
+import { ToDo } from "./projects/ToDo/ToDo";
 
 export const App = () =>{
     return <section>
